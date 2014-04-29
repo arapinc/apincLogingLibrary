@@ -57,7 +57,8 @@ class ApincLog {
 		if ($_GET['l'] == "0.0,0.0,0.0") {
 			$this->coordinate = "NULL";
 		} else if ($_GET['l']) {
-			$this->coordinate = $_GET['l'];
+			$location = split(",", $_GET[l]);
+			$this->coordinate = $location[0].",".$location[1];
 		} else {
 			$this->coordinate = "NULL";
 		}
@@ -79,12 +80,12 @@ class ApincLog {
 
 	public function putDataForJs() {
 		echo '<script type="text/javascript">'."\n";
-		echo "var userdata = {};\n";
-		$location = split(",", $this->coordinate);
-		echo "userdata.l = [".$location[0].", ".$location[1]."];\n";
-		echo "userdata.aid = ".$this->accessid.";\n";
-		echo "userdata.cid = ".$this->connectid.";\n";
-		echo "userdata.uid = \"".$this->uid."\";\n";
+		echo "var userData = {};\n";
+		$location = split(",", $_GET[l]);
+		echo "userData.l = [".$location[0].", ".$location[1]."];\n";
+		echo "userData.aid = ".$this->accessid.";\n";
+		echo "userData.cid = ".$this->connectid.";\n";
+		echo "userData.uid = \"".$this->uid."\";\n";
 		echo "</script>\n";
 	}
 }
